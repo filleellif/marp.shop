@@ -17,12 +17,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Set up Docker Buildx
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Buildx
       id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v3
-      with:
-        buildx-version: latest
-        qemu-version: latest
+      uses: docker/setup-buildx-action@v1
+
+#    - name: Set up Docker Buildx
+#      id: buildx
+#      uses: crazy-max/ghaction-docker-buildx@v3
+#      with:
+#        buildx-version: latest
+#        qemu-version: latest
 
     - name: Inspect builder
       run: |
@@ -37,4 +44,4 @@ jobs:
         docker buildx build \
           --platform linux/arm/v7
           --output "type=image,push=false" \
-          --file ./Dockerfile ./
+          --file ./Dockerfile
