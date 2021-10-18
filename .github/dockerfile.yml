@@ -1,0 +1,18 @@
+name: Docker Build/Publish Image
+
+on:
+  push:
+    branches: [ develop ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    env:
+      DOCKER_REGISTRY: ghcr.io
+      DOCKER_IMAGE: filleellif/marp.shop
+      DOCKER_USERNAME: ${{ github.actor }}
+      DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+    
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v1
